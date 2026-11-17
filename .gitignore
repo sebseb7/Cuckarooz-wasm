@@ -1,0 +1,9 @@
+# Dependencies
+node_modules/
+
+# Compiled WebAssembly artifacts (built via Docker / CI, packaged in npm)
+cuckarooz.js
+cuckarooz.wasm
+
+# Native test binary
+test/cuckarooz_native

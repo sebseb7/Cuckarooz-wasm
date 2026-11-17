@@ -1,0 +1,56 @@
+{
+  "name": "cuckoo-wasm",
+  "version": "0.1.0",
+  "description": "Cuckarooz Cycle proof-of-work WebAssembly library for password login throttling in Node.js and browsers",
+  "type": "module",
+  "main": "./index.node.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "node": "./index.node.js",
+      "default": "./index.js"
+    },
+    "./cuckarooz.wasm": "./cuckarooz.wasm"
+  },
+  "files": [
+    "index.js",
+    "index.node.js",
+    "index.d.ts",
+    "adapter.js",
+    "node-worker-client.js",
+    "node-worker.js",
+    "cuckarooz.js",
+    "cuckarooz.wasm",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "docker build -o . .",
+    "build:docker": "docker build -o . .",
+    "test": "node test/test.js",
+    "bench": "node test/benchmark.js",
+    "prepublishOnly": "npm test"
+  },
+  "keywords": [
+    "cuckoo",
+    "cuckarooz",
+    "pow",
+    "proof-of-work",
+    "wasm",
+    "webassembly",
+    "emscripten",
+    "login-throttling",
+    "rate-limiting",
+    "blake2b",
+    "siphash"
+  ],
+  "license": "0BSD",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

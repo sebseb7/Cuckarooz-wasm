@@ -1,0 +1,8 @@
+node_modules/
+cuckoo/
+node-cuckaroo29b-hashing/
+skelehash-wasm/
+.git/
+*.tgz
+cuckarooz.js
+cuckarooz.wasm
