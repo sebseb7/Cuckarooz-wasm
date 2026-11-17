@@ -42,20 +42,51 @@ await fetch('/api/login', {
 });
 ```
 
-### Node.js Server (Verification)
+### Node.js Server (Challenge Issuance & Verification)
 
 In Node.js, `cuckarooz-wasm` automatically resolves `index.node.js`, which runs `mine()` on a `worker_threads` worker so it does not block the event loop, while `verify()` runs directly in WASM in ~0.1 ms.
 
+#### Recommended Challenge Size & Form
+- **Size**: Use **16–32 random bytes** (e.g. `crypto.randomBytes(16).toString('base64url')`, 22 chars) so challenges cannot be precomputed or collided. Keep total challenge length **≤ 120 bytes** if embedding metadata so `challenge || nonce_le64` fits in a single 128-byte BLAKE2b block.
+- **Single-use & short TTL**: Expire challenges after `60–120 s` and **consume them before checking the password** (even on wrong passwords) so one solved proof only buys one login attempt.
+- **Server-bound difficulty**: Look up or HMAC-sign the required `difficulty` server-side — never trust a client-supplied difficulty.
+
 ```js
+import crypto from 'node:crypto';
 import { verify } from 'cuckarooz-wasm';
 
-const result = await verify(expectedChallenge, expectedDifficulty, req.body.proof);
-if (!result.valid) {
-  return res.status(429).json({ error: result.error, code: result.code });
-}
+// Store { difficulty, expiresAt, scope } in Redis / DB with a 60-120s TTL
+const pendingChallenges = new Map();
 
-// Mark challenge as spent (single-use) and proceed to password check
+// GET /api/login/challenge
+app.get('/api/login/challenge', (req, res) => {
+  const challenge = `login:${crypto.randomBytes(16).toString('base64url')}`;
+  const difficulty = getDifficultyForIp(req.ip); // e.g. 1 normally, 4-16 under rate-limit
+  pendingChallenges.set(challenge, { difficulty, expiresAt: Date.now() + 90_000 });
+  res.json({ challenge, difficulty });
+});
+
+// POST /api/login
+app.post('/api/login', async (req, res) => {
+  const { challenge, proof, username, password } = req.body;
+
+  // Atomically consume challenge so it cannot be replayed on failed password attempts
+  const record = pendingChallenges.get(challenge);
+  pendingChallenges.delete(challenge);
+  if (!record || record.expiresAt < Date.now()) {
+    return res.status(400).json({ error: 'Challenge missing or expired' });
+  }
+
+  const result = await verify(challenge, record.difficulty, proof);
+  if (!result.valid) {
+    return res.status(429).json({ error: result.error, code: result.code });
+  }
+
+  // Proceed to password verification
+});
 ```
+
+> **Stateless challenge alternative:** To avoid storing unredeemed challenges, issue an HMAC-signed token `<exp>.<difficulty>.<random16B>.<hmac>` (≤ 120 bytes), verify the signature/expiry/difficulty on login, and record the `random16B` ID in a short-TTL spent cache until `exp`.
 
 ## API
 
