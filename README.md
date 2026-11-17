@@ -1,8 +1,18 @@
 # cuckarooz-wasm
 
+[![npm version](https://img.shields.io/npm/v/cuckarooz-wasm)](https://www.npmjs.com/package/cuckarooz-wasm)
+
 Cuckarooz Cycle proof-of-work WebAssembly library for API throttling in **Node.js** and **browsers**, compiled from C11 with Emscripten inside Docker.
 
 Based on John Tromp's [Cuckarooz Cycle](https://github.com/tromp/cuckoo/tree/master/src/cuckarooz) (BLAKE2b-256 + SipHash-2-4 over a unipartite graph).
+
+## Installation
+
+Available on [npm](https://www.npmjs.com/package/cuckarooz-wasm) with prebuilt WebAssembly binaries (`cuckarooz.wasm` + `cuckarooz.js`) included — installs on any platform without compilers or Docker:
+
+```sh
+npm install cuckarooz-wasm
+```
 
 ### Browser (ESM / Bundlers)
 
