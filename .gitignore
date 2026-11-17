@@ -7,3 +7,6 @@ cuckarooz.wasm
 
 # Native test binary
 test/cuckarooz_native
+
+# Package tarballs
+*.tgz

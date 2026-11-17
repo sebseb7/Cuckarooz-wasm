@@ -2,6 +2,14 @@
   "name": "cuckarooz-wasm",
   "version": "0.1.0",
   "description": "Cuckarooz Cycle proof-of-work WebAssembly library for password login throttling in Node.js and browsers",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebseb7/Cuckarooz-wasm.git"
+  },
+  "homepage": "https://github.com/sebseb7/Cuckarooz-wasm#readme",
+  "bugs": {
+    "url": "https://github.com/sebseb7/Cuckarooz-wasm/issues"
+  },
   "type": "module",
   "main": "./index.node.js",
   "module": "./index.js",
