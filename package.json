@@ -1,5 +1,5 @@
 {
-  "name": "cuckoo-wasm",
+  "name": "cuckarooz-wasm",
   "version": "0.1.0",
   "description": "Cuckarooz Cycle proof-of-work WebAssembly library for password login throttling in Node.js and browsers",
   "type": "module",

@@ -1,4 +1,4 @@
-# cuckoo-wasm
+# cuckarooz-wasm
 
 Cuckarooz Cycle proof-of-work WebAssembly library for API throttling in **Node.js** and **browsers**, compiled from C11 with Emscripten inside Docker.
 
@@ -7,7 +7,7 @@ Based on John Tromp's [Cuckarooz Cycle](https://github.com/tromp/cuckoo/tree/mas
 ### Browser (ESM / Bundlers)
 
 ```js
-import { mine } from 'cuckoo-wasm';
+import { mine } from 'cuckarooz-wasm';
 
 // 1. Fetch { challenge, difficulty } from your auth server
 const { challenge, difficulty } = await fetch('/api/login/challenge').then((r) => r.json());
@@ -34,10 +34,10 @@ await fetch('/api/login', {
 
 ### Node.js Server (Verification)
 
-In Node.js, `cuckoo-wasm` automatically resolves `index.node.js`, which runs `mine()` on a `worker_threads` worker so it does not block the event loop, while `verify()` runs directly in WASM in ~0.1 ms.
+In Node.js, `cuckarooz-wasm` automatically resolves `index.node.js`, which runs `mine()` on a `worker_threads` worker so it does not block the event loop, while `verify()` runs directly in WASM in ~0.1 ms.
 
 ```js
-import { verify } from 'cuckoo-wasm';
+import { verify } from 'cuckarooz-wasm';
 
 const result = await verify(expectedChallenge, expectedDifficulty, req.body.proof);
 if (!result.valid) {

@@ -1,10 +1,10 @@
-import createCuckooModule from './cuckarooz.js';
+import createCuckaroozModule from './cuckarooz.js';
 import {
   DEFAULT_EDGE_BITS,
   DEFAULT_PROOF_SIZE,
   ERROR_MESSAGES,
   VerifyCode,
-  createCuckooAPI,
+  createCuckaroozAPI,
   decodeToken,
   encodeToken,
   getDifficultyFromHash,
@@ -14,8 +14,8 @@ let apiPromise;
 
 function getAPI() {
   if (!apiPromise) {
-    apiPromise = createCuckooModule()
-      .then((Module) => createCuckooAPI(Module))
+    apiPromise = createCuckaroozModule()
+      .then((Module) => createCuckaroozAPI(Module))
       .catch((error) => {
         apiPromise = undefined;
         throw error;
@@ -63,7 +63,7 @@ export {
   DEFAULT_PROOF_SIZE,
   ERROR_MESSAGES,
   VerifyCode,
-  createCuckooAPI,
+  createCuckaroozAPI,
   decodeToken,
   encodeToken,
   getDifficultyFromHash,

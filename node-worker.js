@@ -18,7 +18,7 @@ parentPort.on('message', async ({ id, operation, payload }) => {
     } else if (operation === 'verify') {
       result = await verify(payload.challenge, payload.difficulty, payload.proof, payload.options);
     } else {
-      throw new TypeError(`Unknown cuckoo-wasm operation: ${operation}`);
+      throw new TypeError(`Unknown cuckarooz-wasm operation: ${operation}`);
     }
 
     parentPort.postMessage({ id, result });

@@ -232,4 +232,4 @@ function formatBytes(bytes) {
   console.log('browser compatibility check: OK');
 }
 
-console.log('\nAll cuckoo-wasm tests passed.');
+console.log('\nAll cuckarooz-wasm tests passed.');

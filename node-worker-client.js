@@ -44,7 +44,7 @@ function getWorker() {
     const exitedWorker = worker;
     worker = undefined;
     if (pending.size > 0) {
-      rejectAll(new Error(`cuckoo-wasm worker stopped unexpectedly with exit code ${code}`));
+      rejectAll(new Error(`cuckarooz-wasm worker stopped unexpectedly with exit code ${code}`));
     }
     exitedWorker?.removeAllListeners();
   });

@@ -27,7 +27,7 @@ jobs:
           path: |
             cuckarooz.wasm
             cuckarooz.js
-          key: ${{ runner.os }}-cuckoo-wasm-${{ hashFiles('src/**', 'index.js', 'adapter.js', 'Dockerfile') }}
+          key: ${{ runner.os }}-cuckarooz-wasm-${{ hashFiles('src/**', 'index.js', 'adapter.js', 'Dockerfile') }}
 
       - name: Build WASM library via Emscripten Docker
         if: steps.wasm-cache.outputs.cache-hit != 'true'

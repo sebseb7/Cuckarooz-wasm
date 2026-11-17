@@ -126,7 +126,7 @@ export function encodeToken(proof: ProofPayload & { hash: string | Uint8Array })
 
 export function decodeToken(token: string): DecodedToken | null;
 
-export function createCuckooAPI(Module: unknown): {
+export function createCuckaroozAPI(Module: unknown): {
   mine(challenge: BytesInput, difficulty: number, options?: MineOptions): Promise<MiningResult>;
   mineSync(challenge: BytesInput, difficulty: number, options?: MineOptions): MiningResult;
   verify(

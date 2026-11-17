@@ -335,11 +335,11 @@ function parseProofInput(proof, expectedEdgeBits, expectedProofSize) {
   return { nonce, edges, expectedHashBytes };
 }
 
-export function createCuckooAPI(Module) {
+export function createCuckaroozAPI(Module) {
   function allocBytes(bytes) {
     if (bytes.length === 0) return 0;
     const ptr = Module._malloc(bytes.length);
-    if (!ptr) throw new Error('cuckoo-wasm: out of memory');
+    if (!ptr) throw new Error('cuckarooz-wasm: out of memory');
     Module.HEAPU8.set(bytes, ptr);
     return ptr;
   }
@@ -348,7 +348,7 @@ export function createCuckooAPI(Module) {
     const byteLen = values.length * 4;
     if (byteLen === 0) return 0;
     const ptr = Module._malloc(byteLen);
-    if (!ptr) throw new Error('cuckoo-wasm: out of memory');
+    if (!ptr) throw new Error('cuckarooz-wasm: out of memory');
     const offset = ptr >>> 2;
     for (let i = 0; i < values.length; i++) {
       Module.HEAPU32[offset + i] = values[i] >>> 0;
@@ -389,7 +389,7 @@ export function createCuckooAPI(Module) {
     try {
       edgesPtr = allocU32(edgesCopy);
       outPtr = Module._malloc(32);
-      if (!outPtr) throw new Error('cuckoo-wasm: out of memory');
+      if (!outPtr) throw new Error('cuckarooz-wasm: out of memory');
       const rc = Module._cz_cycle_hash(edgesPtr, edgesCopy.length, edgeBits, outPtr);
       if (rc !== VerifyCode.POW_OK) {
         throw new Error(ERROR_MESSAGES[rc] || 'Failed to compute cycle hash');
@@ -435,7 +435,7 @@ export function createCuckooAPI(Module) {
         expectedHashPtr = allocBytes(parsed.expectedHashBytes);
       }
       outHashPtr = Module._malloc(32);
-      if (!outHashPtr) throw new Error('cuckoo-wasm: out of memory');
+      if (!outHashPtr) throw new Error('cuckarooz-wasm: out of memory');
 
       const code = Module._cz_verify_challenge(
         challengePtr,
